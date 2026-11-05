@@ -9,50 +9,353 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as IndexRouteImport } from './routes/index'
+import { Route as Char123LangChar125RouteRouteImport } from './routes/{-$lang}/route'
+import { Route as Char123LangChar125IndexRouteImport } from './routes/{-$lang}/index'
+import { Route as Char123LangChar125AvisoLegalRouteImport } from './routes/{-$lang}/aviso-legal'
+import { Route as Char123LangChar125CompaniaRouteImport } from './routes/{-$lang}/compania'
+import { Route as Char123LangChar125ContactoRouteImport } from './routes/{-$lang}/contacto'
+import { Route as Char123LangChar125DossieresRouteImport } from './routes/{-$lang}/dossieres'
+import { Route as Char123LangChar125TraxectoriasRouteImport } from './routes/{-$lang}/traxectorias'
+import { Route as Char123LangChar125VideosRouteImport } from './routes/{-$lang}/videos'
+import { Route as Char123LangChar125EspectaculosIndexRouteImport } from './routes/{-$lang}/espectaculos/index'
+import { Route as Char123LangChar125EspectaculosSlugRouteImport } from './routes/{-$lang}/espectaculos/$slug'
+import { Route as Char123LangChar125MusicaValenteIndexRouteImport } from './routes/{-$lang}/musica-valente/index'
+import { Route as Char123LangChar125MusicaValenteSlugRouteImport } from './routes/{-$lang}/musica-valente/$slug'
+import { Route as Char123LangChar125ValconsaIndexRouteImport } from './routes/{-$lang}/valconsa/index'
+import { Route as Char123LangChar125ValconsaSlugRouteImport } from './routes/{-$lang}/valconsa/$slug'
 
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const Char123LangChar125RouteRoute = Char123LangChar125RouteRouteImport.update({
+  id: '/{-$lang}',
+  path: '/{-$lang}',
   getParentRoute: () => rootRouteImport,
 } as any)
+const Char123LangChar125IndexRoute = Char123LangChar125IndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => Char123LangChar125RouteRoute,
+} as any)
+const Char123LangChar125AvisoLegalRoute =
+  Char123LangChar125AvisoLegalRouteImport.update({
+    id: '/aviso-legal',
+    path: '/aviso-legal',
+    getParentRoute: () => Char123LangChar125RouteRoute,
+  } as any)
+const Char123LangChar125CompaniaRoute =
+  Char123LangChar125CompaniaRouteImport.update({
+    id: '/compania',
+    path: '/compania',
+    getParentRoute: () => Char123LangChar125RouteRoute,
+  } as any)
+const Char123LangChar125ContactoRoute =
+  Char123LangChar125ContactoRouteImport.update({
+    id: '/contacto',
+    path: '/contacto',
+    getParentRoute: () => Char123LangChar125RouteRoute,
+  } as any)
+const Char123LangChar125DossieresRoute =
+  Char123LangChar125DossieresRouteImport.update({
+    id: '/dossieres',
+    path: '/dossieres',
+    getParentRoute: () => Char123LangChar125RouteRoute,
+  } as any)
+const Char123LangChar125TraxectoriasRoute =
+  Char123LangChar125TraxectoriasRouteImport.update({
+    id: '/traxectorias',
+    path: '/traxectorias',
+    getParentRoute: () => Char123LangChar125RouteRoute,
+  } as any)
+const Char123LangChar125VideosRoute =
+  Char123LangChar125VideosRouteImport.update({
+    id: '/videos',
+    path: '/videos',
+    getParentRoute: () => Char123LangChar125RouteRoute,
+  } as any)
+const Char123LangChar125EspectaculosIndexRoute =
+  Char123LangChar125EspectaculosIndexRouteImport.update({
+    id: '/espectaculos/',
+    path: '/espectaculos/',
+    getParentRoute: () => Char123LangChar125RouteRoute,
+  } as any)
+const Char123LangChar125EspectaculosSlugRoute =
+  Char123LangChar125EspectaculosSlugRouteImport.update({
+    id: '/espectaculos/$slug',
+    path: '/espectaculos/$slug',
+    getParentRoute: () => Char123LangChar125RouteRoute,
+  } as any)
+const Char123LangChar125MusicaValenteIndexRoute =
+  Char123LangChar125MusicaValenteIndexRouteImport.update({
+    id: '/musica-valente/',
+    path: '/musica-valente/',
+    getParentRoute: () => Char123LangChar125RouteRoute,
+  } as any)
+const Char123LangChar125MusicaValenteSlugRoute =
+  Char123LangChar125MusicaValenteSlugRouteImport.update({
+    id: '/musica-valente/$slug',
+    path: '/musica-valente/$slug',
+    getParentRoute: () => Char123LangChar125RouteRoute,
+  } as any)
+const Char123LangChar125ValconsaIndexRoute =
+  Char123LangChar125ValconsaIndexRouteImport.update({
+    id: '/valconsa/',
+    path: '/valconsa/',
+    getParentRoute: () => Char123LangChar125RouteRoute,
+  } as any)
+const Char123LangChar125ValconsaSlugRoute =
+  Char123LangChar125ValconsaSlugRouteImport.update({
+    id: '/valconsa/$slug',
+    path: '/valconsa/$slug',
+    getParentRoute: () => Char123LangChar125RouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
+  '/{-$lang}': typeof Char123LangChar125RouteRouteWithChildren
+  '/{-$lang}/aviso-legal': typeof Char123LangChar125AvisoLegalRoute
+  '/{-$lang}/compania': typeof Char123LangChar125CompaniaRoute
+  '/{-$lang}/contacto': typeof Char123LangChar125ContactoRoute
+  '/{-$lang}/dossieres': typeof Char123LangChar125DossieresRoute
+  '/{-$lang}/traxectorias': typeof Char123LangChar125TraxectoriasRoute
+  '/{-$lang}/videos': typeof Char123LangChar125VideosRoute
+  '/{-$lang}/': typeof Char123LangChar125IndexRoute
+  '/{-$lang}/espectaculos/$slug': typeof Char123LangChar125EspectaculosSlugRoute
+  '/{-$lang}/musica-valente/$slug': typeof Char123LangChar125MusicaValenteSlugRoute
+  '/{-$lang}/valconsa/$slug': typeof Char123LangChar125ValconsaSlugRoute
+  '/{-$lang}/espectaculos/': typeof Char123LangChar125EspectaculosIndexRoute
+  '/{-$lang}/musica-valente/': typeof Char123LangChar125MusicaValenteIndexRoute
+  '/{-$lang}/valconsa/': typeof Char123LangChar125ValconsaIndexRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
+  '/{-$lang}/aviso-legal': typeof Char123LangChar125AvisoLegalRoute
+  '/{-$lang}/compania': typeof Char123LangChar125CompaniaRoute
+  '/{-$lang}/contacto': typeof Char123LangChar125ContactoRoute
+  '/{-$lang}/dossieres': typeof Char123LangChar125DossieresRoute
+  '/{-$lang}/traxectorias': typeof Char123LangChar125TraxectoriasRoute
+  '/{-$lang}/videos': typeof Char123LangChar125VideosRoute
+  '/{-$lang}': typeof Char123LangChar125IndexRoute
+  '/{-$lang}/espectaculos/$slug': typeof Char123LangChar125EspectaculosSlugRoute
+  '/{-$lang}/musica-valente/$slug': typeof Char123LangChar125MusicaValenteSlugRoute
+  '/{-$lang}/valconsa/$slug': typeof Char123LangChar125ValconsaSlugRoute
+  '/{-$lang}/espectaculos': typeof Char123LangChar125EspectaculosIndexRoute
+  '/{-$lang}/musica-valente': typeof Char123LangChar125MusicaValenteIndexRoute
+  '/{-$lang}/valconsa': typeof Char123LangChar125ValconsaIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
+  '/{-$lang}': typeof Char123LangChar125RouteRouteWithChildren
+  '/{-$lang}/aviso-legal': typeof Char123LangChar125AvisoLegalRoute
+  '/{-$lang}/compania': typeof Char123LangChar125CompaniaRoute
+  '/{-$lang}/contacto': typeof Char123LangChar125ContactoRoute
+  '/{-$lang}/dossieres': typeof Char123LangChar125DossieresRoute
+  '/{-$lang}/traxectorias': typeof Char123LangChar125TraxectoriasRoute
+  '/{-$lang}/videos': typeof Char123LangChar125VideosRoute
+  '/{-$lang}/': typeof Char123LangChar125IndexRoute
+  '/{-$lang}/espectaculos/$slug': typeof Char123LangChar125EspectaculosSlugRoute
+  '/{-$lang}/musica-valente/$slug': typeof Char123LangChar125MusicaValenteSlugRoute
+  '/{-$lang}/valconsa/$slug': typeof Char123LangChar125ValconsaSlugRoute
+  '/{-$lang}/espectaculos/': typeof Char123LangChar125EspectaculosIndexRoute
+  '/{-$lang}/musica-valente/': typeof Char123LangChar125MusicaValenteIndexRoute
+  '/{-$lang}/valconsa/': typeof Char123LangChar125ValconsaIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/{-$lang}'
+    | '/{-$lang}/aviso-legal'
+    | '/{-$lang}/compania'
+    | '/{-$lang}/contacto'
+    | '/{-$lang}/dossieres'
+    | '/{-$lang}/traxectorias'
+    | '/{-$lang}/videos'
+    | '/{-$lang}/'
+    | '/{-$lang}/espectaculos/$slug'
+    | '/{-$lang}/musica-valente/$slug'
+    | '/{-$lang}/valconsa/$slug'
+    | '/{-$lang}/espectaculos/'
+    | '/{-$lang}/musica-valente/'
+    | '/{-$lang}/valconsa/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/{-$lang}/aviso-legal'
+    | '/{-$lang}/compania'
+    | '/{-$lang}/contacto'
+    | '/{-$lang}/dossieres'
+    | '/{-$lang}/traxectorias'
+    | '/{-$lang}/videos'
+    | '/{-$lang}'
+    | '/{-$lang}/espectaculos/$slug'
+    | '/{-$lang}/musica-valente/$slug'
+    | '/{-$lang}/valconsa/$slug'
+    | '/{-$lang}/espectaculos'
+    | '/{-$lang}/musica-valente'
+    | '/{-$lang}/valconsa'
+  id:
+    | '__root__'
+    | '/{-$lang}'
+    | '/{-$lang}/aviso-legal'
+    | '/{-$lang}/compania'
+    | '/{-$lang}/contacto'
+    | '/{-$lang}/dossieres'
+    | '/{-$lang}/traxectorias'
+    | '/{-$lang}/videos'
+    | '/{-$lang}/'
+    | '/{-$lang}/espectaculos/$slug'
+    | '/{-$lang}/musica-valente/$slug'
+    | '/{-$lang}/valconsa/$slug'
+    | '/{-$lang}/espectaculos/'
+    | '/{-$lang}/musica-valente/'
+    | '/{-$lang}/valconsa/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
+  Char123LangChar125RouteRoute: typeof Char123LangChar125RouteRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/{-$lang}': {
+      id: '/{-$lang}'
+      path: '/{-$lang}'
+      fullPath: '/{-$lang}'
+      preLoaderRoute: typeof Char123LangChar125RouteRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/{-$lang}/': {
+      id: '/{-$lang}/'
+      path: '/'
+      fullPath: '/{-$lang}/'
+      preLoaderRoute: typeof Char123LangChar125IndexRouteImport
+      parentRoute: typeof Char123LangChar125RouteRoute
+    }
+    '/{-$lang}/aviso-legal': {
+      id: '/{-$lang}/aviso-legal'
+      path: '/aviso-legal'
+      fullPath: '/{-$lang}/aviso-legal'
+      preLoaderRoute: typeof Char123LangChar125AvisoLegalRouteImport
+      parentRoute: typeof Char123LangChar125RouteRoute
+    }
+    '/{-$lang}/compania': {
+      id: '/{-$lang}/compania'
+      path: '/compania'
+      fullPath: '/{-$lang}/compania'
+      preLoaderRoute: typeof Char123LangChar125CompaniaRouteImport
+      parentRoute: typeof Char123LangChar125RouteRoute
+    }
+    '/{-$lang}/contacto': {
+      id: '/{-$lang}/contacto'
+      path: '/contacto'
+      fullPath: '/{-$lang}/contacto'
+      preLoaderRoute: typeof Char123LangChar125ContactoRouteImport
+      parentRoute: typeof Char123LangChar125RouteRoute
+    }
+    '/{-$lang}/dossieres': {
+      id: '/{-$lang}/dossieres'
+      path: '/dossieres'
+      fullPath: '/{-$lang}/dossieres'
+      preLoaderRoute: typeof Char123LangChar125DossieresRouteImport
+      parentRoute: typeof Char123LangChar125RouteRoute
+    }
+    '/{-$lang}/traxectorias': {
+      id: '/{-$lang}/traxectorias'
+      path: '/traxectorias'
+      fullPath: '/{-$lang}/traxectorias'
+      preLoaderRoute: typeof Char123LangChar125TraxectoriasRouteImport
+      parentRoute: typeof Char123LangChar125RouteRoute
+    }
+    '/{-$lang}/videos': {
+      id: '/{-$lang}/videos'
+      path: '/videos'
+      fullPath: '/{-$lang}/videos'
+      preLoaderRoute: typeof Char123LangChar125VideosRouteImport
+      parentRoute: typeof Char123LangChar125RouteRoute
+    }
+    '/{-$lang}/espectaculos/': {
+      id: '/{-$lang}/espectaculos/'
+      path: '/espectaculos'
+      fullPath: '/{-$lang}/espectaculos/'
+      preLoaderRoute: typeof Char123LangChar125EspectaculosIndexRouteImport
+      parentRoute: typeof Char123LangChar125RouteRoute
+    }
+    '/{-$lang}/espectaculos/$slug': {
+      id: '/{-$lang}/espectaculos/$slug'
+      path: '/espectaculos/$slug'
+      fullPath: '/{-$lang}/espectaculos/$slug'
+      preLoaderRoute: typeof Char123LangChar125EspectaculosSlugRouteImport
+      parentRoute: typeof Char123LangChar125RouteRoute
+    }
+    '/{-$lang}/musica-valente/': {
+      id: '/{-$lang}/musica-valente/'
+      path: '/musica-valente'
+      fullPath: '/{-$lang}/musica-valente/'
+      preLoaderRoute: typeof Char123LangChar125MusicaValenteIndexRouteImport
+      parentRoute: typeof Char123LangChar125RouteRoute
+    }
+    '/{-$lang}/musica-valente/$slug': {
+      id: '/{-$lang}/musica-valente/$slug'
+      path: '/musica-valente/$slug'
+      fullPath: '/{-$lang}/musica-valente/$slug'
+      preLoaderRoute: typeof Char123LangChar125MusicaValenteSlugRouteImport
+      parentRoute: typeof Char123LangChar125RouteRoute
+    }
+    '/{-$lang}/valconsa/': {
+      id: '/{-$lang}/valconsa/'
+      path: '/valconsa'
+      fullPath: '/{-$lang}/valconsa/'
+      preLoaderRoute: typeof Char123LangChar125ValconsaIndexRouteImport
+      parentRoute: typeof Char123LangChar125RouteRoute
+    }
+    '/{-$lang}/valconsa/$slug': {
+      id: '/{-$lang}/valconsa/$slug'
+      path: '/valconsa/$slug'
+      fullPath: '/{-$lang}/valconsa/$slug'
+      preLoaderRoute: typeof Char123LangChar125ValconsaSlugRouteImport
+      parentRoute: typeof Char123LangChar125RouteRoute
     }
   }
 }
 
+interface Char123LangChar125RouteRouteChildren {
+  Char123LangChar125AvisoLegalRoute: typeof Char123LangChar125AvisoLegalRoute
+  Char123LangChar125CompaniaRoute: typeof Char123LangChar125CompaniaRoute
+  Char123LangChar125ContactoRoute: typeof Char123LangChar125ContactoRoute
+  Char123LangChar125DossieresRoute: typeof Char123LangChar125DossieresRoute
+  Char123LangChar125TraxectoriasRoute: typeof Char123LangChar125TraxectoriasRoute
+  Char123LangChar125VideosRoute: typeof Char123LangChar125VideosRoute
+  Char123LangChar125IndexRoute: typeof Char123LangChar125IndexRoute
+  Char123LangChar125EspectaculosSlugRoute: typeof Char123LangChar125EspectaculosSlugRoute
+  Char123LangChar125MusicaValenteSlugRoute: typeof Char123LangChar125MusicaValenteSlugRoute
+  Char123LangChar125ValconsaSlugRoute: typeof Char123LangChar125ValconsaSlugRoute
+  Char123LangChar125EspectaculosIndexRoute: typeof Char123LangChar125EspectaculosIndexRoute
+  Char123LangChar125MusicaValenteIndexRoute: typeof Char123LangChar125MusicaValenteIndexRoute
+  Char123LangChar125ValconsaIndexRoute: typeof Char123LangChar125ValconsaIndexRoute
+}
+
+const Char123LangChar125RouteRouteChildren: Char123LangChar125RouteRouteChildren =
+  {
+    Char123LangChar125AvisoLegalRoute: Char123LangChar125AvisoLegalRoute,
+    Char123LangChar125CompaniaRoute: Char123LangChar125CompaniaRoute,
+    Char123LangChar125ContactoRoute: Char123LangChar125ContactoRoute,
+    Char123LangChar125DossieresRoute: Char123LangChar125DossieresRoute,
+    Char123LangChar125TraxectoriasRoute: Char123LangChar125TraxectoriasRoute,
+    Char123LangChar125VideosRoute: Char123LangChar125VideosRoute,
+    Char123LangChar125IndexRoute: Char123LangChar125IndexRoute,
+    Char123LangChar125EspectaculosSlugRoute:
+      Char123LangChar125EspectaculosSlugRoute,
+    Char123LangChar125MusicaValenteSlugRoute:
+      Char123LangChar125MusicaValenteSlugRoute,
+    Char123LangChar125ValconsaSlugRoute: Char123LangChar125ValconsaSlugRoute,
+    Char123LangChar125EspectaculosIndexRoute:
+      Char123LangChar125EspectaculosIndexRoute,
+    Char123LangChar125MusicaValenteIndexRoute:
+      Char123LangChar125MusicaValenteIndexRoute,
+    Char123LangChar125ValconsaIndexRoute: Char123LangChar125ValconsaIndexRoute,
+  }
+
+const Char123LangChar125RouteRouteWithChildren =
+  Char123LangChar125RouteRoute._addFileChildren(
+    Char123LangChar125RouteRouteChildren,
+  )
+
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
+  Char123LangChar125RouteRoute: Char123LangChar125RouteRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
