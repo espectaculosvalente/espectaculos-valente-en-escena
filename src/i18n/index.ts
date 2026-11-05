@@ -17,7 +17,7 @@ const DICTS: Record<Lang, Dict> = { gl, es, en };
 export const HTML_LANG: Record<Lang, string> = { gl: "gl", es: "es", en: "en" };
 export const OG_LOCALE: Record<Lang, string> = { gl: "gl_ES", es: "es_ES", en: "en_GB" };
 
-/** Convierte o parámetro opcional da URL nun idioma válido (ou null se non é válido). */
+/** Converte o parámetro opcional da URL nun idioma válido (ou null se non é válido). */
 export function parseLangParam(param: string | undefined): Lang | null {
   if (param === undefined || param === "") return DEFAULT_LANG;
   if ((SECONDARY_LANGS as readonly string[]).includes(param)) return param as Lang;

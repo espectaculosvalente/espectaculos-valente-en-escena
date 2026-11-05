@@ -19,6 +19,7 @@ export const en: Dict = {
     menu: "Menu",
     close: "Close",
     language: "Language",
+    main: "Main navigation",
   },
   ph: {
     logo: "[Add official logo]",
@@ -74,6 +75,9 @@ export const en: Dict = {
     careersTitle: "Who's behind the curtain",
     careersText: "Get to know the professional careers of the five people who make up Espectáculos Valente.",
     careersCta: "Meet our people",
+    badgeA: "Tradition",
+    badgeB: "+ modernity",
+    backstageAlt: "Dressing room with costumes and theatre masks",
   },
   company: {
     kicker: "About us",

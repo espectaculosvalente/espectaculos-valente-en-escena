@@ -20,7 +20,7 @@ export function SiteHeader() {
           <Wordmark />
         </Link>
 
-        <nav aria-label="Principal" className="ml-6 hidden flex-1 items-center gap-0.5 xl:flex">
+        <nav aria-label={t.nav.main} className="ml-6 hidden flex-1 items-center gap-0.5 xl:flex">
           {NAV_ITEMS.slice(1, 8).map((item) => (
             <Link
               key={item.key}
@@ -53,7 +53,7 @@ export function SiteHeader() {
                   <Wordmark inverted />
                 </SheetTitle>
               </SheetHeader>
-              <nav aria-label="Móbil" className="flex flex-col gap-1 px-4">
+              <nav aria-label={t.nav.menu} className="flex flex-col gap-1 px-4">
                 {NAV_ITEMS.map((item) => (
                   <Link
                     key={item.key}

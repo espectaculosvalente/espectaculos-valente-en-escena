@@ -17,6 +17,7 @@ export const gl = {
     menu: "Menú",
     close: "Pechar",
     language: "Idioma",
+    main: "Navegación principal",
   },
   ph: {
     logo: "[Engadir logotipo oficial]",
@@ -72,6 +73,9 @@ export const gl = {
     careersTitle: "Quen está detrás do pano",
     careersText: "Coñece as traxectorias profesionais das cinco persoas que forman Espectáculos Valente.",
     careersCta: "Ver traxectorias",
+    badgeA: "Tradición",
+    badgeB: "+ modernidade",
+    backstageAlt: "Camerino con vestiario e máscaras teatrais",
   },
   company: {
     kicker: "Quen somos",

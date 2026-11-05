@@ -19,6 +19,7 @@ export const es: Dict = {
     menu: "Menú",
     close: "Cerrar",
     language: "Idioma",
+    main: "Navegación principal",
   },
   ph: {
     logo: "[Añadir logotipo oficial]",
@@ -74,6 +75,9 @@ export const es: Dict = {
     careersTitle: "Quién está detrás del telón",
     careersText: "Conoce las trayectorias profesionales de las cinco personas que forman Espectáculos Valente.",
     careersCta: "Ver trayectorias",
+    badgeA: "Tradición",
+    badgeB: "+ modernidad",
+    backstageAlt: "Camerino con vestuario y máscaras teatrales",
   },
   company: {
     kicker: "Quiénes somos",

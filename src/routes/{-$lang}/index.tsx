@@ -146,15 +146,15 @@ function Home() {
         <div className="relative">
           <img
             src={backstageImg}
-            alt="Camerino con vestiario e máscaras teatrais"
+            alt={t.home.backstageAlt}
             loading="lazy"
             width={1280}
             height={1280}
             className="aspect-[4/5] w-full rounded-lg object-cover shadow-stage"
           />
           <div className="absolute -bottom-6 -right-4 hidden rounded-lg bg-primary px-6 py-5 text-primary-foreground shadow-red md:block">
-            <p className="font-display text-3xl italic leading-none">Tradición</p>
-            <p className="font-display text-3xl leading-none">+ modernidade</p>
+            <p className="font-display text-3xl italic leading-none">{t.home.badgeA}</p>
+            <p className="font-display text-3xl leading-none">{t.home.badgeB}</p>
           </div>
         </div>
         <div>

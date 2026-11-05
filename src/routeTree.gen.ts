@@ -13,6 +13,7 @@ import { Route as Char123LangChar125RouteRouteImport } from './routes/{-$lang}/r
 import { Route as Char123LangChar125IndexRouteImport } from './routes/{-$lang}/index'
 import { Route as Char123LangChar125AvisoLegalRouteImport } from './routes/{-$lang}/aviso-legal'
 import { Route as Char123LangChar125CompaniaRouteImport } from './routes/{-$lang}/compania'
+import { Route as Char123LangChar125ContactoRouteImport } from './routes/{-$lang}/contacto'
 import { Route as Char123LangChar125DossieresRouteImport } from './routes/{-$lang}/dossieres'
 import { Route as Char123LangChar125TraxectoriasRouteImport } from './routes/{-$lang}/traxectorias'
 import { Route as Char123LangChar125VideosRouteImport } from './routes/{-$lang}/videos'
@@ -43,6 +44,12 @@ const Char123LangChar125CompaniaRoute =
   Char123LangChar125CompaniaRouteImport.update({
     id: '/compania',
     path: '/compania',
+    getParentRoute: () => Char123LangChar125RouteRoute,
+  } as any)
+const Char123LangChar125ContactoRoute =
+  Char123LangChar125ContactoRouteImport.update({
+    id: '/contacto',
+    path: '/contacto',
     getParentRoute: () => Char123LangChar125RouteRoute,
   } as any)
 const Char123LangChar125DossieresRoute =
@@ -104,6 +111,7 @@ export interface FileRoutesByFullPath {
   '/{-$lang}': typeof Char123LangChar125RouteRouteWithChildren
   '/{-$lang}/aviso-legal': typeof Char123LangChar125AvisoLegalRoute
   '/{-$lang}/compania': typeof Char123LangChar125CompaniaRoute
+  '/{-$lang}/contacto': typeof Char123LangChar125ContactoRoute
   '/{-$lang}/dossieres': typeof Char123LangChar125DossieresRoute
   '/{-$lang}/traxectorias': typeof Char123LangChar125TraxectoriasRoute
   '/{-$lang}/videos': typeof Char123LangChar125VideosRoute
@@ -118,6 +126,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/{-$lang}/aviso-legal': typeof Char123LangChar125AvisoLegalRoute
   '/{-$lang}/compania': typeof Char123LangChar125CompaniaRoute
+  '/{-$lang}/contacto': typeof Char123LangChar125ContactoRoute
   '/{-$lang}/dossieres': typeof Char123LangChar125DossieresRoute
   '/{-$lang}/traxectorias': typeof Char123LangChar125TraxectoriasRoute
   '/{-$lang}/videos': typeof Char123LangChar125VideosRoute
@@ -134,6 +143,7 @@ export interface FileRoutesById {
   '/{-$lang}': typeof Char123LangChar125RouteRouteWithChildren
   '/{-$lang}/aviso-legal': typeof Char123LangChar125AvisoLegalRoute
   '/{-$lang}/compania': typeof Char123LangChar125CompaniaRoute
+  '/{-$lang}/contacto': typeof Char123LangChar125ContactoRoute
   '/{-$lang}/dossieres': typeof Char123LangChar125DossieresRoute
   '/{-$lang}/traxectorias': typeof Char123LangChar125TraxectoriasRoute
   '/{-$lang}/videos': typeof Char123LangChar125VideosRoute
@@ -151,6 +161,7 @@ export interface FileRouteTypes {
     | '/{-$lang}'
     | '/{-$lang}/aviso-legal'
     | '/{-$lang}/compania'
+    | '/{-$lang}/contacto'
     | '/{-$lang}/dossieres'
     | '/{-$lang}/traxectorias'
     | '/{-$lang}/videos'
@@ -165,6 +176,7 @@ export interface FileRouteTypes {
   to:
     | '/{-$lang}/aviso-legal'
     | '/{-$lang}/compania'
+    | '/{-$lang}/contacto'
     | '/{-$lang}/dossieres'
     | '/{-$lang}/traxectorias'
     | '/{-$lang}/videos'
@@ -180,6 +192,7 @@ export interface FileRouteTypes {
     | '/{-$lang}'
     | '/{-$lang}/aviso-legal'
     | '/{-$lang}/compania'
+    | '/{-$lang}/contacto'
     | '/{-$lang}/dossieres'
     | '/{-$lang}/traxectorias'
     | '/{-$lang}/videos'
@@ -224,6 +237,13 @@ declare module '@tanstack/react-router' {
       path: '/compania'
       fullPath: '/{-$lang}/compania'
       preLoaderRoute: typeof Char123LangChar125CompaniaRouteImport
+      parentRoute: typeof Char123LangChar125RouteRoute
+    }
+    '/{-$lang}/contacto': {
+      id: '/{-$lang}/contacto'
+      path: '/contacto'
+      fullPath: '/{-$lang}/contacto'
+      preLoaderRoute: typeof Char123LangChar125ContactoRouteImport
       parentRoute: typeof Char123LangChar125RouteRoute
     }
     '/{-$lang}/dossieres': {
@@ -295,6 +315,7 @@ declare module '@tanstack/react-router' {
 interface Char123LangChar125RouteRouteChildren {
   Char123LangChar125AvisoLegalRoute: typeof Char123LangChar125AvisoLegalRoute
   Char123LangChar125CompaniaRoute: typeof Char123LangChar125CompaniaRoute
+  Char123LangChar125ContactoRoute: typeof Char123LangChar125ContactoRoute
   Char123LangChar125DossieresRoute: typeof Char123LangChar125DossieresRoute
   Char123LangChar125TraxectoriasRoute: typeof Char123LangChar125TraxectoriasRoute
   Char123LangChar125VideosRoute: typeof Char123LangChar125VideosRoute
@@ -311,6 +332,7 @@ const Char123LangChar125RouteRouteChildren: Char123LangChar125RouteRouteChildren
   {
     Char123LangChar125AvisoLegalRoute: Char123LangChar125AvisoLegalRoute,
     Char123LangChar125CompaniaRoute: Char123LangChar125CompaniaRoute,
+    Char123LangChar125ContactoRoute: Char123LangChar125ContactoRoute,
     Char123LangChar125DossieresRoute: Char123LangChar125DossieresRoute,
     Char123LangChar125TraxectoriasRoute: Char123LangChar125TraxectoriasRoute,
     Char123LangChar125VideosRoute: Char123LangChar125VideosRoute,
