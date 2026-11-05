@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 import { Ph } from "./Placeholder";
 
 /** Reprodutor YouTube/Vimeo adaptado a móbiles. */
-export function VideoEmbed({ url, title, className }: { url?: string; title: string; className?: string }) {
+export function VideoEmbed({ url, title, className }: { url?: string | undefined; title: string; className?: string }) {
   const t = useT();
   const embed = url ? toEmbedUrl(url) : null;
   if (!embed) {

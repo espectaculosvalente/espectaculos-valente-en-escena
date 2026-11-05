@@ -146,7 +146,7 @@ function Field({
   label: string;
   required?: boolean;
   requiredLabel?: string;
-  error?: string;
+  error?: string | undefined;
   className?: string;
   children: React.ReactNode;
 }) {

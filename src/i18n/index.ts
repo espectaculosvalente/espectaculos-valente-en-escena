@@ -50,7 +50,7 @@ export function useLangParams(): { lang: string | undefined } {
 /** Cambia o prefixo de idioma dun pathname. */
 export function switchLangPath(pathname: string, target: Lang): string {
   const parts = pathname.split("/").filter(Boolean);
-  if (parts.length && (SECONDARY_LANGS as readonly string[]).includes(parts[0])) parts.shift();
+  if (parts.length && (SECONDARY_LANGS as readonly string[]).includes(parts[0] ?? "")) parts.shift();
   const rest = parts.join("/");
   if (target === DEFAULT_LANG) return "/" + rest;
   return `/${target}${rest ? "/" + rest : ""}`;
@@ -59,7 +59,7 @@ export function switchLangPath(pathname: string, target: Lang): string {
 type MetaKey = keyof Dict["meta"];
 
 /** Metadatos traducidos para o head() de cada páxina. */
-export function pageHead(param: string | undefined, key: MetaKey, override?: { title?: string; description?: string }) {
+export function pageHead(param: string | undefined, key: MetaKey, override?: { title?: string | undefined; description?: string | undefined }) {
   const lang = parseLangParam(param) ?? DEFAULT_LANG;
   const m = getDict(lang).meta[key];
   const title = override?.title ?? m.title;
