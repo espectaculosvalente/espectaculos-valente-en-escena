@@ -16,7 +16,7 @@ const searchSchema = z.object({ espectaculo: z.string().max(200).optional() });
 
 export const Route = createFileRoute("/{-$lang}/contacto")({
   validateSearch: (s) => searchSchema.parse(s),
-  head: ({ params }) => pageHead(params.lang, "contact"),
+  head: (ctx) => pageHead(ctx, "contact"),
   component: Contact,
 });
 

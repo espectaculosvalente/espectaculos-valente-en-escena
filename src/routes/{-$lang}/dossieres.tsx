@@ -3,17 +3,19 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Download, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { pageHead, useT } from "@/i18n";
-import { MATERIALS, type ShowKind } from "@/content/catalog";
+import type { ShowKind } from "@/content/catalog";
+import { useMaterials } from "@/lib/use-content";
 import { FilterChips, PageHero } from "@/components/site/PageHero";
 import { Ph, ProvisionalBadge } from "@/components/site/Placeholder";
 
 export const Route = createFileRoute("/{-$lang}/dossieres")({
-  head: ({ params }) => pageHead(params.lang, "dossiers"),
+  head: (ctx) => pageHead(ctx, "dossiers"),
   component: Dossiers,
 });
 
 function Dossiers() {
   const t = useT();
+  const MATERIALS = useMaterials();
   const [section, setSection] = useState<ShowKind | "all">("all");
   const sectionLabel: Record<ShowKind, string> = {
     propia: t.nav.shows,

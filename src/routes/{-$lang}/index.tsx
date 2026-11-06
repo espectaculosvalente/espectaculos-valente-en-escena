@@ -2,25 +2,28 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Download, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { pageHead, useLangParams, useT } from "@/i18n";
-import { SHOWS, VIDEOS } from "@/content/catalog";
+import { useShows, useSiteImage, useVideos } from "@/lib/use-content";
 import { ShowCard } from "@/components/site/ShowCard";
 import { VideoCard } from "@/components/site/VideoCard";
 import { SectionHeading } from "@/components/site/PageHero";
 import { Ph } from "@/components/site/Placeholder";
-import heroImg from "@/assets/hero-escena.jpg";
-import backstageImg from "@/assets/compania-backstage.jpg";
-import musicImg from "@/assets/musica-valente.jpg";
-import valconsaImg from "@/assets/valconsa-sala.jpg";
 
 export const Route = createFileRoute("/{-$lang}/")({
-  head: ({ params }) => pageHead(params.lang, "home"),
+  head: (ctx) => pageHead(ctx, "home"),
   component: Home,
 });
 
 function Home() {
   const t = useT();
   const lp = useLangParams();
-  const featured = SHOWS.filter((s) => s.kind === "propia" && s.featured).slice(0, 3);
+  const own = useShows("propia");
+  const videos = useVideos();
+  const featuredOnly = own.filter((s) => s.featured);
+  const featured = (featuredOnly.length ? featuredOnly : own).slice(0, 3);
+  const heroImg = useSiteImage("hero");
+  const backstageImg = useSiteImage("home_company");
+  const musicImg = useSiteImage("home_music");
+  const valconsaImg = useSiteImage("home_valconsa");
 
   return (
     <>
@@ -185,7 +188,7 @@ function Home() {
             }
           />
           <div className="grid gap-8 md:grid-cols-3">
-            {VIDEOS.slice(0, 3).map((v) => (
+            {videos.slice(0, 3).map((v) => (
               <VideoCard key={v.id} video={v} inverted />
             ))}
           </div>

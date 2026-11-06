@@ -1,19 +1,19 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { pageHead, useT } from "@/i18n";
-import { showsByKind } from "@/content/catalog";
+import { useShows, useSiteImage } from "@/lib/use-content";
 import { PageHero } from "@/components/site/PageHero";
 import { ShowCard } from "@/components/site/ShowCard";
 import { Ph } from "@/components/site/Placeholder";
-import musicImg from "@/assets/musica-valente.jpg";
 
 export const Route = createFileRoute("/{-$lang}/musica-valente/")({
-  head: ({ params }) => pageHead(params.lang, "music"),
+  head: (ctx) => pageHead(ctx, "music"),
   component: Music,
 });
 
 function Music() {
   const t = useT();
-  const items = showsByKind("musica");
+  const items = useShows("musica");
+  const musicImg = useSiteImage("music_hero");
   return (
     <div className="bg-ink text-ink-foreground">
       <PageHero kicker={t.music.kicker} title={t.music.title} lead={t.music.lead} image={musicImg} />
