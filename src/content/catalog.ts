@@ -1,39 +1,41 @@
 /**
- * Contido provisional da web.
+ * Tipos de contido e marcadores provisionais.
  *
- * IMPORTANTE: aquí non hai datos reais. Todos os elementos están marcados
- * con `placeholder: true` e móstranse na web como «[Engadir …]».
- * Na seguinte fase este ficheiro substitúese pola base de datos e o panel
- * de administración.
+ * O contido real vén da base de datos (panel /admin). Os elementos con
+ * `placeholder: true` só se mostran mentres unha sección está baleira.
  */
 
 export type ShowKind = "propia" | "musica" | "valconsa";
 export type ShowCategory = "teatro" | "comedia" | "familiar" | "rua";
 
 export interface Show {
+  id?: string;
   slug: string;
   kind: ShowKind;
   number: string;
-  category?: ShowCategory;
+  category?: ShowCategory | undefined;
   featured?: boolean;
-  placeholder: true;
+  placeholder: boolean;
   // Campos reais (baleiros ata que se carguen). Os campos baleiros non se mostran.
-  title?: string;
-  subtitle?: string;
-  artist?: string;
-  synopsis?: string;
-  description?: string;
-  genre?: string;
-  audience?: string;
-  duration?: string;
-  performers?: string;
-  credits?: string;
-  technical?: string;
-  videoUrl?: string;
-  dossierUrl?: string;
+  title?: string | undefined;
+  subtitle?: string | undefined;
+  artist?: string | undefined;
+  synopsis?: string | undefined;
+  description?: string | undefined;
+  genre?: string | undefined;
+  audience?: string | undefined;
+  duration?: string | undefined;
+  performers?: string | undefined;
+  credits?: string | undefined;
+  technical?: string | undefined;
+  image?: string | undefined;
+  gallery?: string[];
+  videoUrl?: string | undefined;
+  dossierUrl?: string | undefined;
+  pressUrl?: string | undefined;
 }
 
-export const SHOWS: Show[] = [
+export const PLACEHOLDER_SHOWS: Show[] = [
   { slug: "espectaculo-1", kind: "propia", number: "01", category: "teatro", featured: true, placeholder: true },
   { slug: "espectaculo-2", kind: "propia", number: "02", category: "comedia", featured: true, placeholder: true },
   { slug: "espectaculo-3", kind: "propia", number: "03", category: "familiar", featured: true, placeholder: true },
@@ -45,24 +47,25 @@ export const SHOWS: Show[] = [
   { slug: "distribucion-3", kind: "valconsa", number: "03", category: "familiar", placeholder: true },
 ];
 
-export function showsByKind(kind: ShowKind) {
-  return SHOWS.filter((s) => s.kind === kind);
-}
-
-export function findShow(kind: ShowKind, slug: string) {
-  return SHOWS.find((s) => s.kind === kind && s.slug === slug);
+export function placeholderShows(kind: ShowKind) {
+  return PLACEHOLDER_SHOWS.filter((s) => s.kind === kind);
 }
 
 export interface Person {
   slug: string;
   number: string;
-  placeholder: true;
-  name?: string;
-  role?: string;
-  bio?: string;
+  placeholder: boolean;
+  name?: string | undefined;
+  photo?: string | undefined;
+  links?: string | undefined;
+  role?: string | undefined;
+  bio?: string | undefined;
+  training?: string | undefined;
+  experience?: string | undefined;
+  works?: string | undefined;
 }
 
-export const PEOPLE: Person[] = [1, 2, 3, 4, 5].map((n) => ({
+export const PLACEHOLDER_PEOPLE: Person[] = [1, 2, 3, 4, 5].map((n) => ({
   slug: `persoa-${n}`,
   number: String(n).padStart(2, "0"),
   placeholder: true,
@@ -73,12 +76,14 @@ export type VideoCategory = "trailer" | "fragmento" | "promo" | "entrevista" | "
 export interface Video {
   id: string;
   category: VideoCategory;
-  placeholder: true;
-  title?: string;
-  url?: string; // YouTube ou Vimeo
+  placeholder: boolean;
+  title?: string | undefined;
+  description?: string | undefined;
+  url?: string | undefined; // YouTube ou Vimeo
+  cover?: string | undefined;
 }
 
-export const VIDEOS: Video[] = [
+export const PLACEHOLDER_VIDEOS: Video[] = [
   { id: "v1", category: "trailer", placeholder: true },
   { id: "v2", category: "fragmento", placeholder: true },
   { id: "v3", category: "musica", placeholder: true },
@@ -93,12 +98,14 @@ export interface Material {
   id: string;
   type: MaterialType;
   section: ShowKind;
-  placeholder: true;
-  title?: string;
-  fileUrl?: string;
+  placeholder: boolean;
+  title?: string | undefined;
+  description?: string | undefined;
+  fileUrl?: string | undefined;
+  cover?: string | undefined;
 }
 
-export const MATERIALS: Material[] = [
+export const PLACEHOLDER_MATERIALS: Material[] = [
   { id: "m1", type: "dossier", section: "propia", placeholder: true },
   { id: "m2", type: "ficha", section: "propia", placeholder: true },
   { id: "m3", type: "fotos", section: "propia", placeholder: true },

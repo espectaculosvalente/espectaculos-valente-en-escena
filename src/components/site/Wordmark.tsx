@@ -1,18 +1,16 @@
 import { cn } from "@/lib/utils";
+import logo from "@/assets/logo-valente.png.asset.json";
+import logoNegativo from "@/assets/logo-valente-negativo.png.asset.json";
 
-/**
- * Marca provisional en texto. Substituír polo logotipo oficial cando chegue
- * (non se redeseña nin se inventa o logotipo).
- */
+/** Logotipo oficial de Espectáculos Valente (versión para fondo claro ou escuro). */
 export function Wordmark({ className, inverted = false }: { className?: string; inverted?: boolean }) {
   return (
-    <span className={cn("flex flex-col leading-none", className)}>
-      <span className={cn("kicker text-[0.6rem]", inverted ? "text-ink-muted" : "text-muted-foreground")}>
-        Espectáculos
-      </span>
-      <span className="font-display text-2xl font-semibold italic tracking-tight">
-        Valente<span className="text-primary">.</span>
-      </span>
-    </span>
+    <img
+      src={inverted ? logoNegativo.url : logo.url}
+      alt="Espectáculos Valente"
+      width={573}
+      height={229}
+      className={cn("h-11 w-auto", className)}
+    />
   );
 }

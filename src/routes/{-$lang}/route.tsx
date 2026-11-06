@@ -1,5 +1,6 @@
 import { createFileRoute, notFound, Outlet } from "@tanstack/react-router";
 import { parseLangParam, useT } from "@/i18n";
+import { publicSiteQuery } from "@/lib/site-data";
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
 
@@ -8,6 +9,7 @@ export const Route = createFileRoute("/{-$lang}")({
   beforeLoad: ({ params }) => {
     if (parseLangParam(params.lang) === null) throw notFound();
   },
+  loader: ({ context }) => context.queryClient.ensureQueryData(publicSiteQuery),
   component: LangLayout,
 });
 
