@@ -1,17 +1,19 @@
 import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { pageHead, useT } from "@/i18n";
-import { VIDEOS, type VideoCategory } from "@/content/catalog";
+import type { VideoCategory } from "@/content/catalog";
+import { useVideos } from "@/lib/use-content";
 import { FilterChips, PageHero } from "@/components/site/PageHero";
 import { VideoCard } from "@/components/site/VideoCard";
 
 export const Route = createFileRoute("/{-$lang}/videos")({
-  head: ({ params }) => pageHead(params.lang, "videos"),
+  head: (ctx) => pageHead(ctx, "videos"),
   component: Videos,
 });
 
 function Videos() {
   const t = useT();
+  const VIDEOS = useVideos();
   const [cat, setCat] = useState<VideoCategory | "all">("all");
   const cats = Array.from(new Set(VIDEOS.map((v) => v.category)));
   const list = cat === "all" ? VIDEOS : VIDEOS.filter((v) => v.category === cat);

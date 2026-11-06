@@ -4,16 +4,17 @@ import { Button } from "@/components/ui/button";
 import { pageHead, useLangParams, useT } from "@/i18n";
 import { PageHero } from "@/components/site/PageHero";
 import { Ph, PhImage } from "@/components/site/Placeholder";
-import backstageImg from "@/assets/compania-backstage.jpg";
+import { useSiteImage } from "@/lib/use-content";
 
 export const Route = createFileRoute("/{-$lang}/compania")({
-  head: ({ params }) => pageHead(params.lang, "company"),
+  head: (ctx) => pageHead(ctx, "company"),
   component: Company,
 });
 
 function Company() {
   const t = useT();
   const lp = useLangParams();
+  const backstageImg = useSiteImage("company_hero");
   const s = t.company.sections;
   const blocks = [s.history, s.philosophy, s.territory, s.universal, s.social, s.extra];
 

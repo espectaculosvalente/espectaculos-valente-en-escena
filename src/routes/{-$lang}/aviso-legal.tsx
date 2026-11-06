@@ -3,7 +3,7 @@ import { pageHead, useT } from "@/i18n";
 import { Ph } from "@/components/site/Placeholder";
 
 export const Route = createFileRoute("/{-$lang}/aviso-legal")({
-  head: ({ params }) => pageHead(params.lang, "legal"),
+  head: (ctx) => pageHead(ctx, "legal"),
   component: Legal,
 });
 

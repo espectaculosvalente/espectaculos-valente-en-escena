@@ -1,19 +1,20 @@
 import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { pageHead, useT } from "@/i18n";
-import { showsByKind, type ShowCategory } from "@/content/catalog";
+import type { ShowCategory } from "@/content/catalog";
+import { useShows, useSiteImage } from "@/lib/use-content";
 import { FilterChips, PageHero } from "@/components/site/PageHero";
 import { ShowCard } from "@/components/site/ShowCard";
-import heroImg from "@/assets/hero-escena.jpg";
 
 export const Route = createFileRoute("/{-$lang}/espectaculos/")({
-  head: ({ params }) => pageHead(params.lang, "shows"),
+  head: (ctx) => pageHead(ctx, "shows"),
   component: Shows,
 });
 
 function Shows() {
   const t = useT();
-  const shows = showsByKind("propia");
+  const shows = useShows("propia");
+  const heroImg = useSiteImage("shows_hero");
   const [cat, setCat] = useState<ShowCategory | "all">("all");
   const cats = Array.from(new Set(shows.map((s) => s.category).filter(Boolean))) as ShowCategory[];
   const list = cat === "all" ? shows : shows.filter((s) => s.category === cat);

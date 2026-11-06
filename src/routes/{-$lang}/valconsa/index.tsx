@@ -1,19 +1,19 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Info } from "lucide-react";
 import { pageHead, useT } from "@/i18n";
-import { showsByKind } from "@/content/catalog";
+import { useShows } from "@/lib/use-content";
 import { PageHero } from "@/components/site/PageHero";
 import { ShowCard } from "@/components/site/ShowCard";
 import { Ph } from "@/components/site/Placeholder";
 
 export const Route = createFileRoute("/{-$lang}/valconsa/")({
-  head: ({ params }) => pageHead(params.lang, "valconsa"),
+  head: (ctx) => pageHead(ctx, "valconsa"),
   component: Valconsa,
 });
 
 function Valconsa() {
   const t = useT();
-  const items = showsByKind("valconsa");
+  const items = useShows("valconsa");
   return (
     <>
       <PageHero kicker={t.valconsa.kicker} title={t.valconsa.title} lead={t.valconsa.lead} tone="paper" />

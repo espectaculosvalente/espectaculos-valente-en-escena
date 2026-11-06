@@ -2,23 +2,25 @@ import { createFileRoute } from "@tanstack/react-router";
 import { ArrowUpRight } from "lucide-react";
 import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { pageHead, useT } from "@/i18n";
-import { PEOPLE, type Person } from "@/content/catalog";
+import type { Person } from "@/content/catalog";
+import { usePeople } from "@/lib/use-content";
 import { PageHero } from "@/components/site/PageHero";
 import { Ph, PhImage, ProvisionalBadge } from "@/components/site/Placeholder";
 
 export const Route = createFileRoute("/{-$lang}/traxectorias")({
-  head: ({ params }) => pageHead(params.lang, "careers"),
+  head: (ctx) => pageHead(ctx, "careers"),
   component: Careers,
 });
 
 function Careers() {
   const t = useT();
+  const people = usePeople();
   return (
     <>
       <PageHero kicker={t.careers.kicker} title={t.careers.title} lead={t.careers.lead} tone="red" />
       <section className="mx-auto max-w-7xl px-4 py-20 md:px-8 md:py-28">
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {PEOPLE.map((p, i) => (
+          {people.map((p, i) => (
             <PersonCard key={p.slug} person={p} offset={i % 3 === 1} />
           ))}
         </div>
