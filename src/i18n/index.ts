@@ -1,11 +1,14 @@
+import { useMemo } from "react";
 import { useParams } from "@tanstack/react-router";
 import { gl, type Dict } from "./gl";
 import { es } from "./es";
 import { en } from "./en";
+import { usePublicSite } from "@/lib/site-data";
 
 /**
  * Galego é o idioma principal e vive na raíz (/, /compania…).
  * Castelán e inglés son secundarios e levan prefixo (/es/…, /en/…).
+ * Os textos poden sobrescribirse desde o panel (táboa site_texts).
  */
 export const LANGS = ["gl", "es", "en"] as const;
 export type Lang = (typeof LANGS)[number];
@@ -33,13 +36,54 @@ export function getDict(lang: Lang): Dict {
   return DICTS[lang];
 }
 
+type TextRow = { key: string; lang: string; value: string };
+
+/** Aplica os textos editados no panel sobre os textos por defecto. */
+export function applyOverrides(lang: Lang, rows: TextRow[] | undefined): Dict {
+  const base = DICTS[lang];
+  const mine = (rows ?? []).filter((r) => r.lang === lang && r.value.trim() !== "");
+  if (mine.length === 0) return base;
+  const out = structuredClone(base) as unknown as Record<string, unknown>;
+  for (const r of mine) {
+    const parts = r.key.split(".");
+    let node = out as Record<string, unknown>;
+    for (let i = 0; i < parts.length - 1; i++) {
+      const next = node[parts[i]!];
+      if (!next || typeof next !== "object" || Array.isArray(next)) {
+        node = {};
+        break;
+      }
+      node = next as Record<string, unknown>;
+    }
+    const last = parts[parts.length - 1]!;
+    const current = node[last];
+    if (Array.isArray(current)) node[last] = r.value.split("\n").map((s) => s.trim()).filter(Boolean);
+    else if (typeof current === "string") node[last] = r.value;
+  }
+  return out as unknown as Dict;
+}
+
+/** Lista plana de todos os textos editables: clave → valor (as listas únense por liñas). */
+export function flattenDict(d: unknown, prefix = ""): { key: string; value: string; multiline: boolean }[] {
+  const out: { key: string; value: string; multiline: boolean }[] = [];
+  for (const [k, v] of Object.entries(d as Record<string, unknown>)) {
+    const key = prefix ? `${prefix}.${k}` : k;
+    if (typeof v === "string") out.push({ key, value: v, multiline: v.length > 70 });
+    else if (Array.isArray(v)) out.push({ key, value: v.join("\n"), multiline: true });
+    else if (v && typeof v === "object") out.push(...flattenDict(v, key));
+  }
+  return out;
+}
+
 export function useLang(): Lang {
   const params = useParams({ strict: false }) as { lang?: string };
   return parseLangParam(params.lang) ?? DEFAULT_LANG;
 }
 
 export function useT(): Dict {
-  return getDict(useLang());
+  const lang = useLang();
+  const site = usePublicSite();
+  return useMemo(() => applyOverrides(lang, site.texts), [lang, site.texts]);
 }
 
 /** Params listos para pasar a <Link params>. */
@@ -57,11 +101,20 @@ export function switchLangPath(pathname: string, target: Lang): string {
 }
 
 type MetaKey = keyof Dict["meta"];
+type HeadCtx = {
+  params: { lang?: string | undefined };
+  matches?: ReadonlyArray<{ routeId: string; loaderData?: unknown }>;
+};
 
-/** Metadatos traducidos para o head() de cada páxina. */
-export function pageHead(param: string | undefined, key: MetaKey, override?: { title?: string | undefined; description?: string | undefined }) {
-  const lang = parseLangParam(param) ?? DEFAULT_LANG;
-  const m = getDict(lang).meta[key];
+/** Metadatos traducidos (con textos editados) para o head() de cada páxina. */
+export function pageHead(
+  ctx: HeadCtx,
+  key: MetaKey,
+  override?: { title?: string | undefined; description?: string | undefined },
+) {
+  const lang = parseLangParam(ctx.params.lang) ?? DEFAULT_LANG;
+  const site = ctx.matches?.find((m) => m.routeId === "/{-$lang}")?.loaderData as { texts?: TextRow[] } | undefined;
+  const m = applyOverrides(lang, site?.texts).meta[key];
   const title = override?.title ?? m.title;
   const description = override?.description ?? m.description;
   return {
