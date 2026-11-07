@@ -73,14 +73,9 @@ export function SiteFooter() {
       <div className="border-t border-ink-border">
         <div className="mx-auto flex max-w-7xl flex-col gap-2 px-4 py-6 text-xs text-ink-muted md:flex-row md:items-center md:justify-between md:px-8">
           <span>© {year} Espectáculos Valente. {t.footer.rights}</span>
-          <div className="flex gap-5">
-            <Link to="/{-$lang}/aviso-legal" params={lp} className="hover:text-ink-foreground">
-              {t.footer.legal}
-            </Link>
-            <Link to="/auth" className="hover:text-ink-foreground">
-              {t.footer.team}
-            </Link>
-          </div>
+          <Link to="/{-$lang}/aviso-legal" params={lp} className="hover:text-ink-foreground">
+            {t.footer.legal}
+          </Link>
         </div>
       </div>
     </footer>

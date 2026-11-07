@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 import { useT } from "@/i18n";
 
 /** Texto provisional claramente marcado. */
-export function Ph({ children, className }: { children: React.ReactNode; className?: string }) {
+export function Ph({ children, className }: { children: React.ReactNode; className?: string | undefined }) {
   return (
     <span
       className={cn(
@@ -72,7 +72,7 @@ export function Photo({
   src?: string | undefined;
   alt: string;
   number?: string;
-  tone?: "ink" | "red" | "paper";
+  tone?: "ink" | "red" | "paper" | undefined;
   className?: string;
 }) {
   if (src) {
