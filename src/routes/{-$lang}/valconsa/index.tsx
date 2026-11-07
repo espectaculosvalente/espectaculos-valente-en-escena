@@ -4,7 +4,7 @@ import { pageHead, useT } from "@/i18n";
 import { useShows } from "@/lib/use-content";
 import { PageHero } from "@/components/site/PageHero";
 import { ShowCard } from "@/components/site/ShowCard";
-import { Ph } from "@/components/site/Placeholder";
+import { Txt } from "@/components/site/Placeholder";
 
 export const Route = createFileRoute("/{-$lang}/valconsa/")({
   head: (ctx) => pageHead(ctx, "valconsa"),
@@ -28,7 +28,7 @@ function Valconsa() {
       </section>
       <section className="mx-auto max-w-7xl px-4 py-16 md:px-8 md:py-24">
         <p className="mb-10 text-muted-foreground">
-          <Ph>{t.ph.valconsa}</Ph>
+          <Txt value={t.valconsa.intro} fallback={t.ph.valconsa} />
         </p>
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {items.map((s) => (

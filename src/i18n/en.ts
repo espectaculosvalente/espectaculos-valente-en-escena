@@ -65,6 +65,7 @@ export const en: Dict = {
     aboutKicker: "The company",
     aboutTitle: "From the village square to world theatre",
     aboutCta: "Meet the company",
+    aboutText: "",
     videosKicker: "Video library",
     videosTitle: "See our work",
     dossiersKicker: "For programmers",
@@ -93,6 +94,7 @@ export const en: Dict = {
       extra: "Stage languages and audiences",
     },
     photos: "Company photos",
+    texts: { history: "", philosophy: "", territory: "", universal: "", social: "", extra: "", team: "" },
   },
   careers: {
     kicker: "Team",
@@ -144,6 +146,7 @@ export const en: Dict = {
     title: "Música Valente",
     lead: "The company's music space: projects with roots, festivity and stagecraft for squares, venues and festivals.",
     view: "View project",
+    intro: "",
   },
   valconsa: {
     kicker: "Distribution",
@@ -152,6 +155,7 @@ export const en: Dict = {
     explainerTitle: "What is VALCONSA?",
     explainer: "VALCONSA does not produce the shows in this catalogue: it distributes them. Each page clearly credits the company or artist who created the work.",
     view: "View details",
+    intro: "",
   },
   videos: {
     kicker: "Video library",
@@ -189,8 +193,11 @@ export const en: Dict = {
       message: "Please write a message (at least 10 characters).",
       privacy: "You must accept the privacy policy.",
     },
-    pendingTitle: "Form coming soon",
-    pendingText: "Your details look right, but sending will be switched on once the admin panel is connected. Nothing has been sent yet.",
+    sentTitle: "Message sent",
+    sentText: "Thank you! We have received your enquiry and will reply soon.",
+    failTitle: "Could not send",
+    failText: "Something went wrong while sending your message. Please try again in a few minutes.",
+    sending: "Sending…",
     directTitle: "Direct contact",
     social: "Social media",
   },
@@ -200,6 +207,7 @@ export const en: Dict = {
     contactTitle: "Contact",
     legal: "Legal notice and privacy",
     rights: "All rights reserved.",
+    team: "Team area",
   },
   legal: {
     title: "Legal notice and privacy",

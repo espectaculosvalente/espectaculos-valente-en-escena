@@ -65,6 +65,7 @@ export const es: Dict = {
     aboutKicker: "La compañía",
     aboutTitle: "De la plaza del pueblo al teatro universal",
     aboutCta: "Conocer la compañía",
+    aboutText: "",
     videosKicker: "Videoteca",
     videosTitle: "Así es nuestro trabajo",
     dossiersKicker: "Para programadores",
@@ -93,6 +94,7 @@ export const es: Dict = {
       extra: "Lenguajes escénicos y públicos",
     },
     photos: "Fotografías de la compañía",
+    texts: { history: "", philosophy: "", territory: "", universal: "", social: "", extra: "", team: "" },
   },
   careers: {
     kicker: "Equipo",
@@ -144,6 +146,7 @@ export const es: Dict = {
     title: "Música Valente",
     lead: "El espacio musical de la compañía: propuestas con raíz, fiesta y escena para plazas, salas y festivales.",
     view: "Ver propuesta",
+    intro: "",
   },
   valconsa: {
     kicker: "Distribución",
@@ -152,6 +155,7 @@ export const es: Dict = {
     explainerTitle: "¿Qué es VALCONSA?",
     explainer: "VALCONSA no produce los espectáculos de este catálogo: los distribuye. Cada ficha indica claramente la compañía o artista responsable de la creación.",
     view: "Ver ficha",
+    intro: "",
   },
   videos: {
     kicker: "Videoteca",
@@ -189,8 +193,11 @@ export const es: Dict = {
       message: "Escribe un mensaje (mínimo 10 caracteres).",
       privacy: "Debes aceptar la política de privacidad.",
     },
-    pendingTitle: "Formulario en preparación",
-    pendingText: "Los datos son correctos, pero el envío real se activará cuando conectemos el panel de administración. Por ahora no se ha enviado nada.",
+    sentTitle: "Mensaje enviado",
+    sentText: "¡Gracias! Hemos recibido tu consulta y te responderemos pronto.",
+    failTitle: "No se pudo enviar",
+    failText: "Hubo un problema al enviar el mensaje. Inténtalo de nuevo en unos minutos.",
+    sending: "Enviando…",
     directTitle: "Contacto directo",
     social: "Redes sociales",
   },
@@ -200,6 +207,7 @@ export const es: Dict = {
     contactTitle: "Contacto",
     legal: "Aviso legal y privacidad",
     rights: "Todos los derechos reservados.",
+    team: "Área del equipo",
   },
   legal: {
     title: "Aviso legal y privacidad",

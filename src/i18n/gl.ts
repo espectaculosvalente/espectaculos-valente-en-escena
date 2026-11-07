@@ -63,6 +63,7 @@ export const gl = {
     aboutKicker: "A compañía",
     aboutTitle: "Da praza da vila ao teatro universal",
     aboutCta: "Coñecer a compañía",
+    aboutText: "",
     videosKicker: "Videoteca",
     videosTitle: "Velaquí o noso traballo",
     dossiersKicker: "Para programadores",
@@ -91,6 +92,7 @@ export const gl = {
       extra: "Linguaxes escénicas e públicos",
     },
     photos: "Fotografías da compañía",
+    texts: { history: "", philosophy: "", territory: "", universal: "", social: "", extra: "", team: "" },
   },
   careers: {
     kicker: "Equipo",
@@ -142,6 +144,7 @@ export const gl = {
     title: "Música Valente",
     lead: "O espazo musical da compañía: propostas con raíz, festa e escena para prazas, salas e festivais.",
     view: "Ver proposta",
+    intro: "",
   },
   valconsa: {
     kicker: "Distribución",
@@ -150,6 +153,7 @@ export const gl = {
     explainerTitle: "Que é VALCONSA?",
     explainer: "VALCONSA non produce os espectáculos deste catálogo: distribúeos. Cada ficha indica claramente a compañía ou artista responsable da creación.",
     view: "Ver ficha",
+    intro: "",
   },
   videos: {
     kicker: "Videoteca",
@@ -187,8 +191,11 @@ export const gl = {
       message: "Escribe unha mensaxe (mínimo 10 caracteres).",
       privacy: "Debes aceptar a política de privacidade.",
     },
-    pendingTitle: "Formulario en preparación",
-    pendingText: "Os datos son correctos, pero o envío real activarase cando conectemos o panel de administración. De momento non se enviou nada.",
+    sentTitle: "Mensaxe enviada",
+    sentText: "Grazas! Recibimos a túa consulta e responderémosche axiña.",
+    failTitle: "Non se puido enviar",
+    failText: "Houbo un problema ao enviar a mensaxe. Proba de novo nuns minutos.",
+    sending: "Enviando…",
     directTitle: "Contacto directo",
     social: "Redes sociais",
   },
@@ -198,6 +205,7 @@ export const gl = {
     contactTitle: "Contacto",
     legal: "Aviso legal e privacidade",
     rights: "Todos os dereitos reservados.",
+    team: "Área do equipo",
   },
   legal: {
     title: "Aviso legal e privacidade",

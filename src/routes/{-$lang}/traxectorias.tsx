@@ -5,7 +5,7 @@ import { pageHead, useT } from "@/i18n";
 import type { Person } from "@/content/catalog";
 import { usePeople } from "@/lib/use-content";
 import { PageHero } from "@/components/site/PageHero";
-import { Ph, PhImage, ProvisionalBadge } from "@/components/site/Placeholder";
+import { Ph, Photo, ProvisionalBadge } from "@/components/site/Placeholder";
 
 export const Route = createFileRoute("/{-$lang}/traxectorias")({
   head: (ctx) => pageHead(ctx, "careers"),
@@ -31,8 +31,18 @@ function Careers() {
 
 function PersonCard({ person, offset }: { person: Person; offset: boolean }) {
   const t = useT();
+  const ph = person.placeholder;
   const name = person.name ?? t.ph.person;
-  const fields = [t.careers.bio, t.careers.training, t.careers.experience, t.careers.works, t.careers.links];
+  const fields = [
+    { label: t.careers.bio, value: person.bio, fallback: t.ph.bio },
+    { label: t.careers.training, value: person.training, fallback: t.ph.field },
+    { label: t.careers.experience, value: person.experience, fallback: t.ph.field },
+    { label: t.careers.works, value: person.works, fallback: t.ph.field },
+  ].filter((f) => f.value || ph);
+  const links = (person.links ?? "")
+    .split(/\s+/)
+    .map((s) => s.trim())
+    .filter((s) => /^https?:\/\//.test(s));
 
   return (
     <Dialog>
@@ -42,12 +52,15 @@ function PersonCard({ person, offset }: { person: Person; offset: boolean }) {
           className={`group text-left ${offset ? "lg:mt-16" : ""}`}
           aria-label={`${t.careers.open}: ${name}`}
         >
-          <PhImage
-            number={person.number}
-            tone={offset ? "red" : "ink"}
-            label={t.ph.photo}
-            className="aspect-[3/4] rounded-lg transition-transform duration-500 group-hover:-translate-y-1.5"
-          />
+          <div className="overflow-hidden rounded-lg">
+            <Photo
+              src={person.photo}
+              alt={name}
+              number={person.number}
+              tone={offset ? "red" : "ink"}
+              className="aspect-[3/4] w-full rounded-lg transition-transform duration-500 group-hover:-translate-y-1.5"
+            />
+          </div>
           <div className="mt-4 flex items-start justify-between gap-3">
             <div>
               <p className="kicker mb-1 text-muted-foreground">
@@ -62,22 +75,40 @@ function PersonCard({ person, offset }: { person: Person; offset: boolean }) {
       </DialogTrigger>
       <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-2xl">
         <div className="grid gap-6 sm:grid-cols-[180px_1fr]">
-          <PhImage number={person.number} tone="ink" className="aspect-[3/4] rounded-md" />
+          <Photo src={person.photo} alt={name} number={person.number} tone="ink" className="aspect-[3/4] w-full rounded-md" />
           <div>
-            <ProvisionalBadge className="mb-3" />
+            {ph && <ProvisionalBadge className="mb-3" />}
             <DialogTitle className="font-display text-3xl">{person.name ?? <Ph>{name}</Ph>}</DialogTitle>
             <DialogDescription className="mt-1">{person.role ?? t.careers.role}</DialogDescription>
           </div>
         </div>
         <dl className="mt-4 space-y-5">
           {fields.map((f) => (
-            <div key={f}>
-              <dt className="kicker mb-1.5 text-primary">{f}</dt>
-              <dd className="text-sm text-muted-foreground">
-                <Ph>{f === t.careers.bio ? t.ph.bio : t.ph.field}</Ph>
-              </dd>
+            <div key={f.label}>
+              <dt className="kicker mb-1.5 text-primary">{f.label}</dt>
+              <dd className="whitespace-pre-line text-sm text-muted-foreground">{f.value ?? <Ph>{f.fallback}</Ph>}</dd>
             </div>
           ))}
+          {(links.length > 0 || ph) && (
+            <div>
+              <dt className="kicker mb-1.5 text-primary">{t.careers.links}</dt>
+              <dd className="text-sm">
+                {links.length > 0 ? (
+                  <ul className="space-y-1">
+                    {links.map((l) => (
+                      <li key={l}>
+                        <a href={l} target="_blank" rel="noopener noreferrer" className="break-all text-primary underline-offset-4 hover:underline">
+                          {l.replace(/^https?:\/\//, "")}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <Ph>{t.ph.field}</Ph>
+                )}
+              </dd>
+            </div>
+          )}
         </dl>
       </DialogContent>
     </Dialog>

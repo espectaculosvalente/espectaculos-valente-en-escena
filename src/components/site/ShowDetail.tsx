@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import type { Show } from "@/content/catalog";
 import { useLangParams, useT } from "@/i18n";
 import { cn } from "@/lib/utils";
-import { Ph, PhImage, ProvisionalBadge } from "./Placeholder";
+import { Ph, PhImage, Photo, ProvisionalBadge } from "./Placeholder";
 import { VideoEmbed } from "./VideoCard";
 
 /**
@@ -83,7 +83,7 @@ export function ShowDetail({ show }: { show: Show }) {
               )}
             </div>
           </div>
-          <PhImage number={show.number} tone={tone} className="aspect-[4/5] rounded-lg lg:aspect-auto lg:min-h-[520px]" />
+          <Photo src={show.image} alt={show.title ?? ""} number={show.number} tone={tone} className="aspect-[4/5] w-full rounded-lg lg:aspect-auto lg:min-h-[520px]" />
         </div>
       </section>
 
@@ -144,14 +144,29 @@ export function ShowDetail({ show }: { show: Show }) {
           </div>
         </div>
 
-        {ph && (
+        {(ph || (show.gallery?.length ?? 0) > 0) && (
           <div className="mt-16">
             <h2 className="kicker mb-4 font-sans text-primary">{t.detail.gallery}</h2>
             <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
-              {[0, 1, 2, 3].map((i) => (
-                <PhImage key={i} tone={i % 2 ? "ink" : "paper"} className="aspect-square rounded-md" />
-              ))}
+              {ph
+                ? [0, 1, 2, 3].map((i) => (
+                    <PhImage key={i} tone={i % 2 ? "ink" : "paper"} className="aspect-square rounded-md" />
+                  ))
+                : show.gallery!.map((src, i) => (
+                    <a key={src} href={src} target="_blank" rel="noopener" className="block overflow-hidden rounded-md">
+                      <img src={src} alt={`${title} · ${i + 1}`} loading="lazy" className="aspect-square w-full object-cover transition-transform duration-500 hover:scale-105" />
+                    </a>
+                  ))}
             </div>
+          </div>
+        )}
+        {show.pressUrl && (
+          <div className="mt-8">
+            <Button asChild variant="outlineInk">
+              <a href={show.pressUrl} download target="_blank" rel="noopener">
+                <Download /> {t.detail.press}
+              </a>
+            </Button>
           </div>
         )}
       </section>

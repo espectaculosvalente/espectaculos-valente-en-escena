@@ -55,6 +55,32 @@ export function PhImage({
   );
 }
 
+/** Texto editable desde o panel: se está baleiro móstrase o marcador provisional. */
+export function Txt({ value, fallback, className }: { value: string | undefined; fallback: string; className?: string }) {
+  if (value && value.trim()) return <span className={cn("whitespace-pre-line", className)}>{value}</span>;
+  return <Ph className={className}>{fallback}</Ph>;
+}
+
+/** Foto real se existe; se non, caixa provisional. */
+export function Photo({
+  src,
+  alt,
+  number,
+  tone,
+  className,
+}: {
+  src?: string | undefined;
+  alt: string;
+  number?: string;
+  tone?: "ink" | "red" | "paper";
+  className?: string;
+}) {
+  if (src) {
+    return <img src={src} alt={alt} loading="lazy" className={cn("object-cover", className)} />;
+  }
+  return <PhImage {...(number ? { number } : {})} {...(tone ? { tone } : {})} {...(className ? { className } : {})} />;
+}
+
 export function ProvisionalBadge({ className }: { className?: string }) {
   const t = useT();
   return (

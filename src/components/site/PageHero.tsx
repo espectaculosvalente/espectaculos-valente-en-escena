@@ -14,7 +14,7 @@ export function PageHero({
   title: string;
   lead?: string;
   tone?: Tone;
-  image?: string;
+  image?: string | undefined;
   children?: React.ReactNode;
 }) {
   const toneCls =

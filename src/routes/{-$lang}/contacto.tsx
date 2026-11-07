@@ -1,13 +1,16 @@
 import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { z } from "zod";
-import { Info, Mail, MapPin, Phone, Share2 } from "lucide-react";
+import { AlertTriangle, CheckCircle2, Mail, MapPin, Phone, Share2 } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { useSettings } from "@/lib/use-content";
+import { SOCIAL_KEYS, SOCIAL_LABELS } from "@/content/image-slots";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
-import { pageHead, useT } from "@/i18n";
+import { pageHead, useLang, useT } from "@/i18n";
 import type { Dict } from "@/i18n/gl";
 import { PageHero } from "@/components/site/PageHero";
 import { Ph } from "@/components/site/Placeholder";
@@ -39,11 +42,15 @@ function Contact() {
   const { espectaculo } = Route.useSearch();
   const [errors, setErrors] = useState<Errors>({});
   const [privacy, setPrivacy] = useState(false);
-  const [done, setDone] = useState(false);
+  const [state, setState] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const lang = useLang();
+  const s = useSettings();
+  const socials = SOCIAL_KEYS.filter((k) => s[k]);
 
-  function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const fd = new FormData(e.currentTarget);
+    const form = e.currentTarget;
+    const fd = new FormData(form);
     // Antispam: campo oculto que só cobren os bots.
     if (fd.get("website")) return;
     const res = makeSchema(t).safeParse({
@@ -62,12 +69,29 @@ function Contact() {
         if (!next[k]) next[k] = issue.message;
       }
       setErrors(next);
-      setDone(false);
+      setState("idle");
       return;
     }
     setErrors({});
-    // TODO fase 2: gardar a consulta na base de datos e avisar por correo.
-    setDone(true);
+    setState("sending");
+    const v = res.data;
+    const { error } = await supabase.from("contact_messages").insert({
+      name: v.name,
+      entity: v.entity ?? null,
+      email: v.email,
+      phone: v.phone ?? null,
+      show_name: v.show ?? null,
+      message: v.message,
+      lang,
+    });
+    if (error) {
+      console.error("contact insert:", error.message);
+      setState("error");
+      return;
+    }
+    form.reset();
+    setPrivacy(false);
+    setState("sent");
   }
 
   return (
@@ -105,14 +129,25 @@ function Contact() {
             {errors.privacy && <p className="mt-2 text-sm text-destructive">{errors.privacy}</p>}
           </div>
           <div className="sm:col-span-2">
-            <Button type="submit" variant="stage" size="xl">{t.contact.submit}</Button>
+            <Button type="submit" variant="stage" size="xl" disabled={state === "sending"}>
+              {state === "sending" ? t.contact.sending : t.contact.submit}
+            </Button>
           </div>
-          {done && (
-            <div role="status" className="flex gap-3 rounded-lg border-2 border-dashed border-placeholder-foreground/40 bg-placeholder p-5 text-placeholder-foreground sm:col-span-2">
-              <Info className="mt-0.5 size-5 shrink-0" />
+          {state === "sent" && (
+            <div role="status" className="flex gap-3 rounded-lg border-2 border-foreground bg-paper p-5 sm:col-span-2">
+              <CheckCircle2 className="mt-0.5 size-5 shrink-0 text-primary" />
               <div>
-                <p className="font-semibold">{t.contact.pendingTitle}</p>
-                <p className="text-sm">{t.contact.pendingText}</p>
+                <p className="font-semibold">{t.contact.sentTitle}</p>
+                <p className="text-sm text-muted-foreground">{t.contact.sentText}</p>
+              </div>
+            </div>
+          )}
+          {state === "error" && (
+            <div role="alert" className="flex gap-3 rounded-lg border-2 border-destructive p-5 sm:col-span-2">
+              <AlertTriangle className="mt-0.5 size-5 shrink-0 text-destructive" />
+              <div>
+                <p className="font-semibold">{t.contact.failTitle}</p>
+                <p className="text-sm text-muted-foreground">{t.contact.failText}</p>
               </div>
             </div>
           )}
@@ -121,10 +156,31 @@ function Contact() {
         <aside className="h-fit space-y-6 rounded-lg bg-ink p-8 text-ink-foreground">
           <h2 className="font-display text-3xl">{t.contact.directTitle}</h2>
           <ul className="space-y-4 text-sm">
-            <li className="flex items-center gap-3"><Mail className="size-4 text-primary" /> <Ph>{t.ph.email}</Ph></li>
-            <li className="flex items-center gap-3"><Phone className="size-4 text-primary" /> <Ph>{t.ph.phone}</Ph></li>
-            <li className="flex items-center gap-3"><MapPin className="size-4 text-primary" /> <Ph>{t.ph.location}</Ph></li>
-            <li className="flex items-center gap-3"><Share2 className="size-4 text-primary" /> <Ph>{t.ph.social}</Ph></li>
+            <li className="flex items-center gap-3">
+              <Mail className="size-4 text-primary" />
+              {s["email"] ? <a href={`mailto:${s["email"]}`} className="hover:text-primary">{s["email"]}</a> : <Ph>{t.ph.email}</Ph>}
+            </li>
+            <li className="flex items-center gap-3">
+              <Phone className="size-4 text-primary" />
+              {s["phone"] ? <a href={`tel:${s["phone"].replace(/\s/g, "")}`} className="hover:text-primary">{s["phone"]}</a> : <Ph>{t.ph.phone}</Ph>}
+            </li>
+            <li className="flex items-center gap-3">
+              <MapPin className="size-4 text-primary" /> {s["location"] ? s["location"] : <Ph>{t.ph.location}</Ph>}
+            </li>
+            <li className="flex items-start gap-3">
+              <Share2 className="mt-0.5 size-4 text-primary" />
+              {socials.length > 0 ? (
+                <span className="flex flex-wrap gap-2">
+                  {socials.map((k) => (
+                    <a key={k} href={s[k]} target="_blank" rel="noopener noreferrer" className="hover:text-primary">
+                      {SOCIAL_LABELS[k]}
+                    </a>
+                  ))}
+                </span>
+              ) : (
+                <Ph>{t.ph.social}</Ph>
+              )}
+            </li>
           </ul>
           <div className="bunting" aria-hidden />
         </aside>

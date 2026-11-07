@@ -3,7 +3,7 @@ import { ArrowUpRight } from "lucide-react";
 import type { Show } from "@/content/catalog";
 import { useLangParams, useT } from "@/i18n";
 import { cn } from "@/lib/utils";
-import { Ph, PhImage, ProvisionalBadge } from "./Placeholder";
+import { Ph, Photo, ProvisionalBadge } from "./Placeholder";
 
 export function ShowCard({ show, className }: { show: Show; className?: string }) {
   const t = useT();
@@ -30,7 +30,7 @@ export function ShowCard({ show, className }: { show: Show; className?: string }
       )}
     >
       <Link {...linkProps} className="relative block" tabIndex={-1} aria-hidden>
-        <PhImage number={show.number} tone={tone} className="aspect-[4/3] transition-transform duration-700 group-hover:scale-[1.03]" />
+        <Photo src={show.image} alt={show.title ?? ""} number={show.number} tone={tone} className="aspect-[4/3] w-full transition-transform duration-700 group-hover:scale-[1.03]" />
         <div className="absolute left-3 top-3 flex gap-2">
           {show.featured && (
             <span className="kicker rounded-full bg-ink px-2.5 py-1 text-[0.62rem] text-ink-foreground">

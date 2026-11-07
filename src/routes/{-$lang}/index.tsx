@@ -6,7 +6,7 @@ import { useShows, useSiteImage, useVideos } from "@/lib/use-content";
 import { ShowCard } from "@/components/site/ShowCard";
 import { VideoCard } from "@/components/site/VideoCard";
 import { SectionHeading } from "@/components/site/PageHero";
-import { Ph } from "@/components/site/Placeholder";
+import { Txt } from "@/components/site/Placeholder";
 
 export const Route = createFileRoute("/{-$lang}/")({
   head: (ctx) => pageHead(ctx, "home"),
@@ -164,7 +164,7 @@ function Home() {
           <p className="kicker mb-3 text-primary">{t.home.aboutKicker}</p>
           <h2 className="display-lg mb-8">{t.home.aboutTitle}</h2>
           <p className="mb-8 text-lg leading-relaxed text-muted-foreground">
-            <Ph>{t.ph.companyText}</Ph>
+            <Txt value={t.home.aboutText} fallback={t.ph.companyText} />
           </p>
           <Button asChild variant="ink" size="xl">
             <Link to="/{-$lang}/compania" params={lp}>
