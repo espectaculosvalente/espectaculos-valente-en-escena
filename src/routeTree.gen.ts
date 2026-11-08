@@ -9,6 +9,8 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as AdminRouteImport } from './routes/admin'
+import { Route as AuthRouteImport } from './routes/auth'
 import { Route as Char123LangChar125RouteRouteImport } from './routes/{-$lang}/route'
 import { Route as Char123LangChar125IndexRouteImport } from './routes/{-$lang}/index'
 import { Route as Char123LangChar125AvisoLegalRouteImport } from './routes/{-$lang}/aviso-legal'
@@ -24,6 +26,16 @@ import { Route as Char123LangChar125MusicaValenteSlugRouteImport } from './route
 import { Route as Char123LangChar125ValconsaIndexRouteImport } from './routes/{-$lang}/valconsa/index'
 import { Route as Char123LangChar125ValconsaSlugRouteImport } from './routes/{-$lang}/valconsa/$slug'
 
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const Char123LangChar125RouteRoute = Char123LangChar125RouteRouteImport.update({
   id: '/{-$lang}',
   path: '/{-$lang}',
@@ -109,6 +121,8 @@ const Char123LangChar125ValconsaSlugRoute =
 
 export interface FileRoutesByFullPath {
   '/{-$lang}': typeof Char123LangChar125RouteRouteWithChildren
+  '/admin': typeof AdminRoute
+  '/auth': typeof AuthRoute
   '/{-$lang}/aviso-legal': typeof Char123LangChar125AvisoLegalRoute
   '/{-$lang}/compania': typeof Char123LangChar125CompaniaRoute
   '/{-$lang}/contacto': typeof Char123LangChar125ContactoRoute
@@ -124,6 +138,8 @@ export interface FileRoutesByFullPath {
   '/{-$lang}/valconsa/': typeof Char123LangChar125ValconsaIndexRoute
 }
 export interface FileRoutesByTo {
+  '/admin': typeof AdminRoute
+  '/auth': typeof AuthRoute
   '/{-$lang}/aviso-legal': typeof Char123LangChar125AvisoLegalRoute
   '/{-$lang}/compania': typeof Char123LangChar125CompaniaRoute
   '/{-$lang}/contacto': typeof Char123LangChar125ContactoRoute
@@ -141,6 +157,8 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/{-$lang}': typeof Char123LangChar125RouteRouteWithChildren
+  '/admin': typeof AdminRoute
+  '/auth': typeof AuthRoute
   '/{-$lang}/aviso-legal': typeof Char123LangChar125AvisoLegalRoute
   '/{-$lang}/compania': typeof Char123LangChar125CompaniaRoute
   '/{-$lang}/contacto': typeof Char123LangChar125ContactoRoute
@@ -159,6 +177,8 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/{-$lang}'
+    | '/admin'
+    | '/auth'
     | '/{-$lang}/aviso-legal'
     | '/{-$lang}/compania'
     | '/{-$lang}/contacto'
@@ -174,6 +194,8 @@ export interface FileRouteTypes {
     | '/{-$lang}/valconsa/'
   fileRoutesByTo: FileRoutesByTo
   to:
+    | '/admin'
+    | '/auth'
     | '/{-$lang}/aviso-legal'
     | '/{-$lang}/compania'
     | '/{-$lang}/contacto'
@@ -190,6 +212,8 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/{-$lang}'
+    | '/admin'
+    | '/auth'
     | '/{-$lang}/aviso-legal'
     | '/{-$lang}/compania'
     | '/{-$lang}/contacto'
@@ -207,10 +231,26 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   Char123LangChar125RouteRoute: typeof Char123LangChar125RouteRouteWithChildren
+  AdminRoute: typeof AdminRoute
+  AuthRoute: typeof AuthRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/{-$lang}': {
       id: '/{-$lang}'
       path: '/{-$lang}'
@@ -356,6 +396,8 @@ const Char123LangChar125RouteRouteWithChildren =
 
 const rootRouteChildren: RootRouteChildren = {
   Char123LangChar125RouteRoute: Char123LangChar125RouteRouteWithChildren,
+  AdminRoute: AdminRoute,
+  AuthRoute: AuthRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
