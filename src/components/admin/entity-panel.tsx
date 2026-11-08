@@ -1,20 +1,15 @@
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import type { SupabaseClient } from "@supabase/supabase-js";
 import { supabase } from "@/integrations/supabase/client";
-import { LANGS, flattenDict, getDict, type Lang } from "@/i18n";
-import { IMAGE_SLOTS, SETTING_FIELDS } from "@/content/image-slots";
+import { LANGS, type Lang } from "@/i18n";
 
-export const Route = createFileRoute("/admin")({
-  head: () => ({
-    meta: [
-      { title: "Panel de xestión — Espectáculos Valente" },
-      { name: "robots", content: "noindex,nofollow" },
-    ],
-  }),
-  component: AdminPage,
-});
+export type EntityTable = "shows" | "people" | "videos" | "materials";
 
-type Row = Record<string, any>;
+// The panel works on several catalogue tables with a shared shape, so it uses
+// an untyped view of the client; each table's policies still apply.
+const db = supabase as unknown as SupabaseClient;
+
+export type Row = Record<string, unknown>;
 type Content = Record<string, Record<string, string>>;
 
 const inputCls =
@@ -45,14 +40,6 @@ function normalizeContent(value: unknown): Content {
     }
   }
   return base;
-}
-
-async function uploadToMedia(file: File, prefix: string): Promise<string> {
-  const ext = (file.name.split(".").pop() ?? "bin").toLowerCase();
-  const path = `${prefix}/${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
-  const { error } = await supabase.storage.from("media").upload(path, file, { upsert: true });
-  if (error) throw new Error(error.message);
-  return supabase.storage.from("media").getPublicUrl(path).data.publicUrl;
 }
 
 function TextField({
@@ -91,7 +78,7 @@ function I18nField({
   field: string;
   content: Content;
   onChange: (lang: Lang, field: string, value: string) => void;
-  multiline?: boolean;
+  multiline?: boolean | undefined;
 }) {
   return (
     <div className="mb-4">
@@ -121,7 +108,7 @@ function I18nField({
   );
 }
 
-type FieldSpec =
+export type FieldSpec =
   | { kind: "text"; name: string; label: string }
   | { kind: "textarea"; name: string; label: string }
   | { kind: "bool"; name: string; label: string }
@@ -130,13 +117,13 @@ type FieldSpec =
   | { kind: "lines"; name: string; label: string }
   | { kind: "i18n"; name: string; label: string; multiline?: boolean };
 
-function EntityPanel({
+export function EntityPanel({
   table,
   singular,
   fields,
   titleOf,
 }: {
-  table: string;
+  table: EntityTable;
   singular: string;
   fields: FieldSpec[];
   titleOf: (row: Row) => string;
@@ -150,7 +137,7 @@ function EntityPanel({
 
   const load = useCallback(async () => {
     setLoading(true);
-    const { data, error } = await supabase.from(table).select("*").order("sort_order", { ascending: true });
+    const { data, error } = await db.from(table).select("*").order("sort_order", { ascending: true });
     setLoading(false);
     if (error) setMsg(error.message);
     else setRows((data ?? []) as Row[]);
@@ -211,8 +198,8 @@ function EntityPanel({
     payload["content"] = content;
 
     const res = form["id"]
-      ? await supabase.from(table).update(payload).eq("id", form["id"] as string)
-      : await supabase.from(table).insert(payload);
+      ? await db.from(table).update(payload).eq("id", form["id"] as string)
+      : await db.from(table).insert(payload);
     setBusy(false);
     if (res.error) {
       setMsg(res.error.message);
@@ -224,7 +211,7 @@ function EntityPanel({
 
   async function remove(row: Row) {
     if (!window.confirm(`Borrar «${titleOf(row)}»? Esta acción non se pode desfacer.`)) return;
-    const { error } = await supabase.from(table).delete().eq("id", row["id"] as string);
+    const { error } = await db.from(table).delete().eq("id", row["id"] as string);
     if (error) setMsg(error.message);
     else await load();
   }
